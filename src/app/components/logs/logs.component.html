@@ -1,0 +1,28 @@
+<!-- Show logs if loaded & there are logs to show -->
+<ul class="list-group" *ngIf="loaded && logs.length > 0">
+  <!-- Loop through logs and output data -->
+  <!-- Set background grey if log selected to edit matches this log -->
+  <li
+    class="row"
+    *ngFor="let log of logs"
+    [class.list-group-item-secondary]="selectedLog == log"
+    class="list-group-item d-flex justify-content-between align-items-center"
+  >
+    <!-- When log clicked, call onSelect and pass in this log -->
+    <a (click)="onSelect(log)" href="#" class="col-6">{{ log.text }}</a>
+    <!-- Show date in dd/MM/yyyy format, inc. time -->
+    <span class="log-date col">{{ log.date | date: "dd/MM/yyyy HH:mm" }}</span>
+    <!-- Call onDelete function, pass in log -->
+    <i (click)="onDelete(log)" class="fa fa-times col-1"></i>
+  </li>
+</ul>
+
+<!-- If user has no logs -->
+<div class="bg-info text-light text-center" *ngIf="loaded && logs.length == 0">
+  <h5 class="p-3">You currently have no logs. Add one above!</h5>
+</div>
+
+<!-- If loading -->
+<div *ngIf="!loaded">
+  <h5>Loading...</h5>
+</div>

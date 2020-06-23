@@ -1,0 +1,32 @@
+<div class="card card-body mb-3">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <!-- Input is binded to text property -->
+      <input
+        type="text"
+        name="text"
+        [(ngModel)]="text"
+        class="form-control"
+        placeholder="Add a log..."
+      />
+    </div>
+    <!-- Disable button if no text entered -->
+    <!-- If editing a log, change button to 'Save Log' -->
+    <input
+      type="submit"
+      [value]="this.isNew ? 'Add Log' : 'Save Log'"
+      class="btn btn-light mr-2 btn-block"
+      [disabled]="!this.text"
+    />
+    <!-- Hide clear button if no text in input above -->
+    <button
+      (click)="clearState()"
+      type="button"
+      class="btn btn-warning btn-block"
+      [hidden]="!this.text"
+    >
+      <!-- If editing existing log, change button to cancel -->
+      {{ this.isNew ? "Clear" : "Cancel" }}
+    </button>
+  </form>
+</div>
