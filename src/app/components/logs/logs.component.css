@@ -1,3 +1,17 @@
 .log-date {
   color: #777;
 }
+
+.completed {
+  font-style: italic;
+  background-color: rgb(223, 223, 223);
+}
+
+.selected {
+  border: 3px solid rgb(0, 64, 107);
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}

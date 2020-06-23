@@ -8,11 +8,12 @@ import { Log } from '../models/Log';
 export class LogService {
   logs: Log[];
 
-  //Source = initial values = behaviursubject with type of log
+  //Source = initial values = behavioursubject with type of log
   private logSource = new BehaviorSubject<Log>({
     id: null,
     text: null,
     date: null,
+    isCompleted: false,
   });
 
   // Selected log observable - used when a log is clicked onto
@@ -24,20 +25,7 @@ export class LogService {
   stateClear = this.stateSource.asObservable();
 
   constructor() {
-    // this.logs = [
-    //   {
-    //     id: '1',
-    //     text: 'Generated components',
-    //     date: new Date('01/06/2020 15:51:21'),
-    //   },
-    //   {
-    //     id: '2',
-    //     text: 'Added Bootstrap',
-    //     date: new Date('01/06/2020 09:25:58'),
-    //   },
-    //   { id: '3', text: 'Fixed bug', date: new Date('01/06/2020 10:11:20') },
-    // ];
-
+    // Initialise empty logs array
     this.logs = [];
   }
 
@@ -51,6 +39,7 @@ export class LogService {
     } else {
       this.logs = JSON.parse(localStorage.getItem('logs'));
     }
+    console.log('Hello');
 
     // Sort logs to newest first
     return of(
@@ -90,6 +79,29 @@ export class LogService {
 
     // Add updated logs array to local storage - set logs object in LS, populate with this.logs - need to convert to string
     localStorage.setItem('logs', JSON.stringify(this.logs));
+  }
+
+  // Toggle completed
+  toggleCompleted(log: Log) {
+    {
+      // Loop through existing logs and find the log based on ID
+      this.logs.forEach((cur, index) => {
+        if (log.id === cur.id) {
+          // Toggle isCompleted status, update date
+          log.isCompleted = !log.isCompleted;
+          log.date = new Date();
+
+          // Remove old version of this log
+          this.logs.splice(index, 1);
+        }
+      });
+
+      // Add updated log to array
+      this.logs.unshift(log);
+
+      // Add updated logs array to local storage - set logs object in LS, populate with this.logs - need to convert to string
+      localStorage.setItem('logs', JSON.stringify(this.logs));
+    }
   }
 
   // Delete log

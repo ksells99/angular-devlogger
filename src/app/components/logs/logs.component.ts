@@ -24,7 +24,7 @@ export class LogsComponent implements OnInit {
     // Subscribe to stateClear observable within log service injected above
     this.logService.stateClear.subscribe((clear) => {
       if (clear) {
-        this.selectedLog = { id: '', text: '', date: '' };
+        this.selectedLog = { id: '', text: '', date: '', isCompleted: false };
       }
     });
 
@@ -52,5 +52,9 @@ export class LogsComponent implements OnInit {
     if (confirm('Are you sure?')) {
       this.logService.deleteLog(log);
     }
+  }
+
+  toggleCompleted(log: Log) {
+    this.logService.toggleCompleted(log);
   }
 }

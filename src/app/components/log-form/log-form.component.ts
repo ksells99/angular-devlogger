@@ -12,6 +12,7 @@ export class LogFormComponent implements OnInit {
   id: string;
   text: string;
   date: any;
+  isCompleted: boolean;
 
   isNew: boolean = true;
 
@@ -42,6 +43,7 @@ export class LogFormComponent implements OnInit {
 
         text: this.text,
         date: new Date(),
+        isCompleted: false,
       };
 
       // Add log - call from logService injected above
@@ -56,6 +58,7 @@ export class LogFormComponent implements OnInit {
         // Update text and date
         text: this.text,
         date: new Date(),
+        isCompleted: false,
       };
 
       // Update - call from logService injected above
@@ -72,6 +75,7 @@ export class LogFormComponent implements OnInit {
     this.id = '';
     this.text = '';
     this.date = '';
+    this.isCompleted = false;
 
     // Call clearState from logService injected.
     this.logService.clearState();
